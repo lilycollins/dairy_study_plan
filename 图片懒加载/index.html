@@ -6,13 +6,28 @@
   <title>图片懒加载</title>
 </head>
 <body>
-  <div>
-    <img src="./src/1.jpg" alt="">
-    <img src="./src/2.jpg" alt="">
-    <img src="./src/3.jpg" alt="">
+  <div style="min-height: 1000px;">
+    <img class="lazy-img" data-src="./src/1.jpg" alt="">
+    <img class="lazy-img" data-src="./src/2.jpg" alt="">
+    <img class="lazy-img" data-src="./src/3.jpg" alt="">
   </div>
   <script>
-    console.log(111)
+        var img = document.querySelectorAll('.lazy-img')
+        //设置每次遍历的起始图片，防止重复加载
+        var n = 0
+        //加载可视区域图片
+        lazyLoad()
+        window.addEventListener('scroll', lazyLoad)
+        function lazyLoad() {
+            let seeHeight = document.documentElement.clientHeight
+            let scrollHeight = document.body.scrollHeight
+            for (let i = n; i<img.length;i++) {
+                if(img[i].offsetHeight < seeHeight + scrollHeight){
+                    img[i].setAttribute('src',img[i].getAttribute('data-src'))
+                    n++
+                }
+            }
+        }
   </script>
 </body>
 </html>
