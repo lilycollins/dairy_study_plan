@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>动态规划</title>
+</head>
+<body>
+  <script>
+    // 区域和检索 - 数组不可变
+    /**
+   * @param {number[]} nums
+   */
+  var NumArray = function(nums) {
+    this.dp = new Array(nums.length+1).fill(0)
+    for(var m=1;m<nums.length+1;m++){
+      this.dp[m] = this.dp[m-1] + nums[m-1]
+    }
+    console.log(this.dp)
+  };
+
+  /** 
+   * @param {number} i 
+   * @param {number} j
+   * @return {number}
+   */
+  NumArray.prototype.sumRange = function(i, j) {
+    console.log(this.dp[j+1] - this.dp[i])
+    
+    // let sum = 0
+    // while(i<=j){
+    //   sum += this.nums[i];
+    //   i++
+    // }
+  }
+  
+//  * Your NumArray object will be instantiated and called as such:
+  var obj = new NumArray([-2, 0, 3, -5, 2, -1])
+  var param_1 = obj.sumRange(2,5)
+ 
+
+  </script>
+</body>
+</html>

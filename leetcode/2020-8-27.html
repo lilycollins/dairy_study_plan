@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <script>
+    // 打家劫舍
+    var rob = function(nums) {
+      let len = nums.length
+      if(len == 0) return 0
+      let opt = new Array(len).fill(0)
+      opt[0] = nums[0]
+      opt[1] = Math.max(nums[0], nums[1])
+      for(var i = 2; i < nums.length; i++) {
+        opt[i] = Math.max(opt[i-2] + nums[i], opt[i-1])
+      }
+      console.log(opt[len-1])
+    };
+    rob([2,7,9,3,1])
+  </script>
+</body>
+</html>

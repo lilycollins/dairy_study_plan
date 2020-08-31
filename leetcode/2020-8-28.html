@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <script>
+    // 输出: [1,2,2,3,5,6]
+    var merge = function(nums1, m, nums2, n) {
+      console.log(111, nums1,m,nums2,n)
+      nums1.splice(m)
+      nums2.splice(n)
+      nums1 = nums1.concat(nums2)
+      console.log(11, nums1)
+      return nums1.sort((a,b)=> {return a-b})
+    };
+    console.log(merge([1,2,3,0,0,0],3,[2,5,6],3))
+  </script>
+</body>
+</html>
