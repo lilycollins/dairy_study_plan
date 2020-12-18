@@ -5,75 +5,107 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>图片懒加载</title>
   <style>
-    img{
+    /* img{
       height: 100vh;
+    } */
+    .box {
+    width: 800px;
+    height: 400px;
+    border: 1px solid;
+    overflow: auto;
+    }
+    .img {
+        width: 100px;
+        height: 100px;
+        border: 1px solid;
+        display: block;
+        margin: 40px auto;
     }
   </style>
 </head>
 <body>
-  <div style="min-height: 1000px;">
-    <img class="lazy-img" src="default.png" data-src="./src/1.jpg" alt="">
-    <img class="lazy-img" src="default.png" data-src="./src/2.jpg" alt="">
-    <img class="lazy-img" src="default.png" data-src="./src/3.jpg" alt="">
+  <!-- 图片懒加载方法1------ 在这里我们使用自定义属性data-src存储真实的图片地址 --> 
+  <div class="box">
+    <img style="margin-top: 600px;" class="img" src=""
+        data-src="https://user-gold-cdn.xitu.io/2019/9/7/16d0a7d1e26e2947?w=533&h=300&f=jpeg&s=44672"
+        alt="">
+    <img class="img" src=""
+        data-src="https://user-gold-cdn.xitu.io/2019/9/7/16d0a7d1e28ba479?w=500&h=463&f=jpeg&s=10435"
+        alt="">
+    <img class="img" src=""
+        data-src="https://user-gold-cdn.xitu.io/2019/9/7/16d0a7d1e5b3c69c?w=579&h=300&f=jpeg&s=23132"
+        alt="">
+    <img class="img" src=""
+        data-src="https://user-gold-cdn.xitu.io/2019/9/7/16d0a7d1e60d6bc9?w=500&h=394&f=jpeg&s=27013"
+        alt="">
+    <img class="img" src=""
+        data-src="https://user-gold-cdn.xitu.io/2019/9/7/16d0a7d1e5ac147c?w=500&h=313&f=jpeg&s=29734"
+        alt="">
+    <img class="img" src=""
+        data-src="https://user-gold-cdn.xitu.io/2019/9/7/16d0a7d1e5d0a8ef?w=428&h=600&f=jpeg&s=37727"
+        alt="">
+    <img class="img" src=""
+        data-src="https://user-gold-cdn.xitu.io/2019/9/7/16d0a7d2033996bc?w=500&h=325&f=jpeg&s=9951"
+        alt="">
   </div>
   <script>
-        // var img = document.querySelectorAll('.lazy-img')
-        // console.log(img)
-        // window.addEventListener('scroll', lazyLoadPng)
-        // function lazyLoadPng(){
-        //   for(let i=0;i<img.length;i++){
-            
-        //   }
-        // }
-          // var seeHeight = document.documentElement.clientHeight; //可见区域高度
-          // var scrollTop = document.documentElement.scrollTop || document.body.scrollTop; //滚动条距离顶部高度
-          // console.log(seeHeight, scrollTop)
-          // for(let i=0;i<img.length;i++){
-          //   console.log(1111,img[i].offsetTop)
-          //   if(img[i].offsetTop < seeHeight + scrollTop){
-          //     if(img[i].src === 'default.png') {
-          //       img[i]
-          //     }
-          //   }
-          // }
-        // //设置每次遍历的起始图片，防止重复加载
-        // var n = 0
-        // //加载可视区域图片
-        // lazyLoad()
-        // window.addEventListener('scroll', lazyLoad)
-        // function lazyLoad() {
-        //     let seeHeight = document.documentElement.clientHeight
-        //     let scrollHeight = document.body.scrollHeight
-        //     for (let i = n; i<img.length;i++) {
-        //         if(img[i].offsetHeight < seeHeight + scrollHeight){
-        //             img[i].setAttribute('src',img[i].getAttribute('data-src'))
-        //             n++
-        //         }
-        //     }
-        // }
-    (function lazyLoad(){
-        const imageToLazy = document.querySelectorAll('img[data-src]');
-        const loadImage = function (image) {
-            image.setAttribute('src', image.getAttribute('data-src'));
-            image.addEventListener('load', function() {
-                image.removeAttribute("data-src");
-            })
-        }
+    
+    // // 1.首先我们先去获取父级元素以及子元素
+    // const box = document.querySelector('.box');
+    // const imgs = document.querySelectorAll('.img');
+    // // 2.监听父级滚动轴变化
+    // // box.addEventListener('scroll', handleListenScroll);
+    // // 节流
+    // box.addEventListener('scroll', throttle(handleListenScroll, 100));
+    // // 3.实现监听函数
+    // function handleListenScroll() {
+    //     //获取父级滚动轴距离顶部距离
+    //     var scrollTop = box.scrollTop;  
+    //     //获取父级高度
+    //     var divHeight = box.clientHeight;
+    //     for (var i = 0; i < imgs.length; i++){
+    //         if (imgs[i].offsetTop < divHeight + scrollTop) {
+    //           imgs[i].src = imgs[i].getAttribute('data-src');
+    //         }
+    //     }
+    // }
+    // function throttle(func, delay) {
+    //     var previous = 0;
+    //     return function () {
+    //         let now = Date.now();
+    //         let context = this;
+    //         let args = arguments;
+    //         if (now - previous > delay) {
+    //             func.apply(context, args);
+    //             previous = now;
+    //         }
+    //     };
+    // }
 
-
-        const intersectionObserver = new IntersectionObserver(function(items, observer) {
-            items.forEach(function(item) {
-                if(item.isIntersecting) {
-                    loadImage(item.target);
-                    observer.unobserve(item.target);
-                }
-            });
+    // 交叉观察者   IE浏览器使用polyfill兼容
+    const box = document.querySelector('.box');
+    const imgs = document.querySelectorAll('.img');
+    const observer = new IntersectionObserver(entries => {
+      console.log(111, entries)
+        // 发生交叉目标元素集合
+        entries.forEach(item => {
+            // 判断是否发生交叉
+            if (item.isIntersecting) {
+                // 替换目标元素Url
+                item.target.src = item.target.dataset.src;
+                // 取消监听此目标元素
+                observer.unobserve(item.target);
+            }
         });
+    }, {
+        root: box, // 父级元素
+        rootMargin: '20px 0px 100px 0px' // 设置偏移 我们可以设置在目标元素距离底部100px的时候发送请求
+    });
 
-        imageToLazy.forEach(function(image){
-            intersectionObserver.observe(image);
-        })
-    })()
+    imgs.forEach(item => {
+        // 监听目标元素
+        observer.observe(item);
+    });
   </script>
 </body>
 </html>
