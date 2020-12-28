@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>12月</title>
+</head>
+<body>
+    <script>
+        // 12.21
+        /*
+        // 假设你正在爬楼梯。需要 n 阶你才能到达楼顶。
+        // 每次你可以爬 1 或 2 个台阶。你有多少种不同的方法可以爬到楼顶呢？
+        // 注意：给定 n 是一个正整数。
+        // posibility(x) = posibility（x-1）+ posibility（x-2）
+        var climbStairs = function(n) {
+            let posibility = new Array(n+1).fill(0)
+            posibility[1] = 1;
+            posibility[2] = 2;
+            for(var i=3;i<=n;i++){
+                posibility[i] = posibility[i-1] + posibility[i-2]
+            }
+            return posibility[n]
+            
+        };
+        climbStairs(5)
+        */
+       /*
+        // 使用最小花费爬楼梯   
+        // 数组的每个索引作为一个阶梯，第 i个阶梯对应着一个非负数的体力花费值 cost[i](索引从0开始)。
+        // 每当你爬上一个阶梯你都要花费对应的体力花费值，然后你可以选择继续爬一个阶梯或者爬两个阶梯。
+        // 您需要找到达到楼层顶部的最低花费。在开始时，你可以选择从索引为 0 或 1 的元素作为初始阶梯。
+        // dp[i] = Math.min(dp[i-1]+cost[i-1], dp[i-2]+cost[i-2])
+        var minCostClimbingStairs = function(cost) {
+            let dp = new Array(cost.length+1)
+            dp[0] = 0
+            dp[1] = 0
+            for(var i=2;i<dp.length;i++) {
+                dp[i] = Math.min(dp[i-1]+cost[i-1], dp[i-2]+cost[i-2])
+            }
+            console.log(dp[cost.length])           
+        };
+        minCostClimbingStairs([1, 100, 1, 1, 1, 100, 1, 1, 100, 1])
+        */
+        /*
+        // 记忆性递归，斐波那契数列
+        function fibnacci(n){
+            // 传统方式-递归-耗费性能-重复计算
+            // if(n==0){return 0}
+            // if(n==1){return 1}
+            // else {
+            //     return fibnacci(n-1)+fibnacci(n-2)
+            // }
+            // 优化-缓存-每个只需要算一次
+            let result = [1,1]
+            for(var i=2;i<n;i++){
+                result[i] = result[i-1]+result[i-2]
+            }        
+            console.log(result[result.length-1])
+            return result[result.length-1]           
+        }
+        console.log(fibnacci(16))
+        */
+        /*
+        // 最小绝对差
+        var minimumAbsDifference = function(arr) {
+            // 先给数组排序，然后判断相邻项之间的绝对差，返回最小。    
+            let result = []
+            arr.sort((a,b)=>{
+                return a-b
+            })
+            let min = arr[1] - arr[0]
+            arr.forEach((ele, index) => {
+                if(arr[index+1]-arr[index]<=min){
+                    min = arr[index+1]-arr[index]
+                    console.log(arr[index+1]-arr[index])
+                } 
+            });
+            arr.forEach((ele, index) => {
+                if(arr[index+1]-arr[index]==min){
+                    result.push([arr[index], arr[index+1]])
+                } 
+            })
+            console.log(result)  
+        };
+        minimumAbsDifference([3,8,-10,23,19,-4,-14,27])
+        */
+    //    12.23
+    // // 字符串中的第一个唯一字符
+    // var firstUniqChar = function(s) {
+    //     for(var i=0;i<s.length;i++) {
+    //         if(s.indexOf(s.charAt(i)) == s.lastIndexOf(s.charAt(i))) {
+    //             return i
+    //         }
+    //     }
+    //     return -1
+    // };
+    // firstUniqChar('loveleetcode')
+
+    // 12.24
+    // 合并两个有序数组
+    // 给你两个有序整数数组 nums1 和 nums2，请你将 nums2 合并到 nums1 中，使 nums1 成为一个有序数组。
+    // 说明：
+    // 初始化 nums1 和 nums2 的元素数量分别为 m 和 n 。
+    // 你可以假设 nums1 有足够的空间（空间大小大于或等于 m + n）来保存 nums2 中的元素。
+    // var merge = function(nums1, m, nums2, n) {
+    //     let nums = []
+    //     nums1.splice(m)
+    //     nums2.splice(n)
+    //     nums = nums1.concat(nums2).sort((a,b)=> {return a-b})
+    //     console.log(nums)
+    // };
+    // merge([1,2,3,0,0,0], 3, [2,5,6], 3)
+    // // 最富有客户的资产总量
+    // // 输入：accounts = [[1,5],[7,3],[3,5]]
+    // // 输出：10
+    // // 解释：
+    // // 第 1 位客户的资产总量 = 6
+    // // 第 2 位客户的资产总量 = 10 
+    // // 第 3 位客户的资产总量 = 8
+    // // 第 2 位客户是最富有的，资产总量是 10
+    // var maximumWealth = function(accounts) {
+    //     console.log(999, accounts)
+    //     let result = 0
+    //     accounts[0].forEach(element => {
+    //         result += element
+    //     });
+    //     console.log(9999, result)
+    //     for(var i=1;i<accounts.length;i++){
+    //         let sum = 0
+    //         accounts[i].forEach(ele => {
+    //             sum += ele
+    //         })
+    //         result = result>sum?result:sum
+    //     }
+    //     console.log('result', result)
+
+    // };
+    // maximumWealth([[1,5],[7,3],[3,5]])
+
+    // 12.28 移除无效括号
+    var minRemoveToMakeValid = function(s) {
+        console.log(s)
+        let arr = s.split('')
+        // 设置一个栈，只维护一个栈元素。 可以存储（） 遍历字符串，遇到charAt('(')进栈，需要存储索引，未
+        // 出栈时需要移除一个"("，好像移除的顺序不限制，所以也可不存储索引(顺序很重要，同时间尽量避免使用splice，
+        // 会改变原数组，下标不准，用栈元素存储索引)，遇到charAt(')')的出栈
+        let stack = []
+        for(var i=0;i<arr.length;i++){
+            if(arr[i]=='(') {
+                stack.push(i)
+            } else if(arr[i] == ')') {
+                if(stack.length>0) {
+                    stack.pop()
+                } else {
+                    delete (arr[i])
+                }
+            }
+        }
+        if(stack.length>0) {
+            for(var i=0;i<stack.length;i++) {
+                delete arr[stack[i]]
+            }          
+        }
+        // arr = arr.filter(val=>val)
+        
+    };
+    minRemoveToMakeValid("())()(((")
+
+
+    </script>
+</body>
+</html>
