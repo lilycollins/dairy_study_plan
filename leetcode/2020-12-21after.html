@@ -218,30 +218,46 @@
     // 三步问题。有个小孩正在上楼梯，楼梯有n阶台阶，小孩一次可以上1阶、2阶或3阶。实现一种方法，计算小孩有多少种上楼梯的方式。
     // 结果可能很大，你需要对结果模1000000007。
     // dp[i] = dp[i-1] + dp[i-2] + dp[i-3]// 动态转换方程是这样
-    var waysToStep = function(n) {
-        if(n<3) return n;
-        // // 状态转移方程
-        // let dp = new Array(n)
-        // console.log(n, dp)
-        // dp[1] = 1
-        // dp[2] = 2
-        // dp[3] = 4
-        // for(var i=4;i<=n;i++) {           
-        //     dp[i] = dp[i-1] + dp[i-2] + dp[i-3]
-        // }
-        // console.log(dp)
-        // posibility(x) = posibility（x-1）+ posibility（x-2）+ posibility（x-3）
-        // 优化之后
-        let a=1,b=1,c=2,d=0
-        for(var i=3;i<=n;i++) {
-            d = a+b+c;
-            a=b;
-            b=c;
-            c=d;
-        }
-        console.log(d)
+    // var waysToStep = function(n) {
+    //     if(n<3) return n;
+    //     // // 状态转移方程
+    //     // let dp = new Array(n)
+    //     // console.log(n, dp)
+    //     // dp[1] = 1
+    //     // dp[2] = 2
+    //     // dp[3] = 4
+    //     // for(var i=4;i<=n;i++) {           
+    //     //     dp[i] = dp[i-1] + dp[i-2] + dp[i-3]
+    //     // }
+    //     // console.log(dp)
+    //     // posibility(x) = posibility（x-1）+ posibility（x-2）+ posibility（x-3）
+    //     // 优化之后
+    //     let a=1,b=1,c=2,d=0
+    //     for(var i=3;i<=n;i++) {
+    //         d = a+b+c;
+    //         a=b;
+    //         b=c;
+    //         c=d;
+    //     }
+    //     console.log(d)
+    // };
+    // waysToStep(10)
+    // 各位数的和
+    // var runningSum = function(nums) {
+    //     let len = nums.length;
+    //     let result = new Array(len)
+    //     result[0] = nums[0]
+    //     for(var i=1;i<len;i++) {
+    //         result[i] = result[i-1] + nums[i]
+    //     }
+    //     return result
+    // };
+    // runningSum([3,1,2,10,1])
+    // 剑指 Offer 58 - II. 左旋转字符串
+    var reverseLeftWords = function(s, n) {
+        console.log(s.slice(n)+s.slice(0,n))
     };
-    waysToStep(10)
+    reverseLeftWords("abcdefg", 2)
     </script>
 </body>
 </html>
