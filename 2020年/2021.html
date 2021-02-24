@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>leetcode</title>
+        <img>
+    </head>
+    <body>
+        <script>
+            // // fibnacci数组
+            // var fib = function(n) {
+            // let result = [0, 1]
+            // for(var i=2;i<=n;i++) {
+            //     console.log(i)
+            //     result[i] = result[i-1] + result[i-2]
+            // }
+            //     return result[n]
+            // };
+
+            // // 重新排列数组给你一个数组 nums ，数组中有 2n 个元素，按 [x1,x2,...,xn,y1,y2,...,yn] 的格式排列。
+            // // 请你将数组按 [x1,y1,x2,y2,...,xn,yn] 格式重新排列，返回重排后的数组。
+            // var shuffle = function(nums, n) {
+            //     let result = []
+            //     for(var i=0;i<n;i++) {
+            //         result.push(nums[i])
+            //         result.push(nums[i+n])
+            //     }
+            //     console.log(result)
+            // };
+            // shuffle([1,2,3,4,4,3,2,1], 4)
+
+            // // 1512. 好数对的数目
+            // var numIdenticalPairs = function(nums) {
+            //     // let count = 0;
+            //     // for(var i=0;i<nums.length;i++) {
+            //     //     for(j=0;j<nums.length;j++) {
+            //     //         if(nums[i]==nums[j] && i<j){
+            //     //             count++
+            //     //         }
+            //     //     }
+            //     // }
+            //     let count = 0;j=0
+            //     for(var i=0;i<nums.length;j++) {
+            //         if(j===nums.length){i++, j=0}
+            //         nums[i]==nums[j] && i<j && count++
+            //     }
+            //     return count
+            //     console.log(count)
+            // };
+            // numIdenticalPairs([1,1,1,1])
+
+            // // 按既定顺序创建目标数组---2021.01.18
+        // // 给你两个整数数组 nums 和 index。你需要按照以下规则创建目标数组：
+        // // 目标数组 target 最初为空。
+        // // 按从左到右的顺序依次读取 nums[i] 和 index[i]，在 target 数组中的下标 index[i] 处插入值 nums[i] 。
+        // // 重复上一步，直到在 nums 和 index 中都没有要读取的元素。
+        // // 请你返回目标数组。
+        // // 题目保证数字插入位置总是存在。
+        // var createTargetArray = function(nums, index) {
+        //     let target = []
+        //     for(var i=0;i<nums.length;i++) {
+        //         console.log(nums[i])                 
+        //         target.splice(index[i], 0, nums[i]);
+        //     }
+        //     console.log(target)
+        // };
+        // createTargetArray([0, 1,2,3,4], [0,1,2,2,1])
+
+        // // 有多少小于当前数字的数字---2021.01.18
+        // // 给你一个数组 nums，对于其中每个元素 nums[i]，请你统计数组中比它小的所有数字的数目。
+        // // 换而言之，对于每个 nums[i] 你必须计算出有效的 j 的数量，其中 j 满足 j != i 且 nums[j] < nums[i] 。
+        // // 以数组形式返回答案。
+        // var smallerNumbersThanCurrent = function(nums) {
+        //     let result = []
+        //     nums.forEach((ele, index) => {
+        //         let count = 0
+        //         nums.forEach((item, i)=>{
+        //             if(ele>item){count++}
+        //         })
+        //         result[index] = count
+        //     });
+        //     return result
+        // };
+        // smallerNumbersThanCurrent([8,1,2,2,3])
+
+        // 拿硬币
+        // 桌上有 n 堆力扣币，每堆的数量保存在数组 coins 中。我们每次可以选择任意一堆，拿走其中的一枚或者两枚，求拿完所有力扣币的最少次数。
+        // var minCount = function(coins) {
+        //     let count = 0
+        //     for(var i=0;i<coins.length;i++) {
+        //         count += Math.ceil(coins[i]/2)
+        //     }
+        //     console.log(count)
+        // };
+        // minCount([2,3,10])
+
+        // 数组中数字出现的次数(undone)
+        // 一个整型数组 nums 里除两个数字之外，其他数字都出现了两次。请写程序找出这两个只出现一次的数字。要求时间复杂度是O(n)，空间复杂度是O(1)。
+        // var singleNumbers = function(nums) {   
+        //     console.log('onlyonce', nums)
+        //     for(var i=0;i<nums.length;i++) {
+        //         if(nums.indexOf(nums[i])!==nums.lastIndexOf(nums[i])) {
+        //             // delete nums[nums.indexOf(nums[i])]
+        //             // delete nums[nums.lastIndexOf(nums[i])]
+        //         }
+        //     }
+        //     console.log(nums)
+        // }
+        
+        // singleNumbers([1,2,10,4,1,4,3,3])
+
+        // // 设计一个算法，找出数组中最小的k个数。以任意顺序返回这k个数均可。
+        // // 输入： arr = [1,3,5,7,2,4,6,8], k = 4
+        // // 输出： [1,2,3,4]
+        // var smallestK = function(arr, k) {
+        //     arr = arr.sort((a, b)=> { return a-b })
+        //     return arr.slice(0, k)
+        // }
+        // console.log(smallestK([1,3,5,7,2,4,6,8], 4))
+
+
+
+        // 规划兼职工作(undone)
+        // 你打算利用空闲时间来做兼职工作赚些零花钱。
+        // 这里有 n 份兼职工作，每份工作预计从 startTime[i] 开始到 endTime[i] 结束，报酬为 profit[i]。
+        // 给你一份兼职工作表，包含开始时间 startTime，结束时间 endTime 和预计报酬 profit 三个数组，
+        // 请你计算并返回可以获得的最大报酬。
+        // 注意，时间上出现重叠的 2 份工作不能同时进行。
+        // 如果你选择的工作在时间 X 结束，那么你可以立刻进行在时间 X 开始的下一份工作。
+        // 输入：startTime = [1,2,3,3], endTime = [3,4,5,6], profit = [50,10,40,70]
+        // 输出：120
+        var jobScheduling = function(startTime, endTime, profit) {
+            // console.log(startTime, endTime, profit)
+            // // 状态转移方程
+        };
+        jobScheduling ([1,2,3,3], [3,4,5,6], [50,10,40,70])
+
+        // 给你一个 m x n 的矩阵 matrix 。如果这个矩阵是托普利茨矩阵，返回 true ；否则，返回 false 。
+        // 如果矩阵上每一条由左上到右下的对角线上的元素都相同，那么这个矩阵是 托普利茨矩阵 。
+        // var isToeplitzMatrix = function(matrix) {
+        //     const m = matrix.length, n = matrix[0].length;
+        //     for (let i = 1; i < m; i++) {
+        //         for (let j = 1; j < n; j++) {
+        //             if (matrix[i][j] != matrix[i - 1][j - 1]) {
+        //                 return false
+        //             }
+        //         }
+        //     }
+        //     return true
+        // };
+        //  console.log(isToeplitzMatrix([[1,2,3,4],[5,1,2,3],[9,5,1,2]]))
+
+        // 1052.爱生气的书店老板 1生气 0no
+        // 输入：customers = [1,0,1,2,1,1,7,5], grumpy = [0,1,0,1,0,1,0,1], X = 3
+        // 输出：16
+        // 解释：
+        // 书店老板在最后 3 分钟保持冷静。
+        // 感到满意的最大客户数量 = 1 + 1 + 1 + 1 + 7 + 5 = 16.
+        // 比较状态为1的值最大值，然后发散出与该值连续的X个值得最大值。把这个范围内grumpy置为1，
+        // 然后累加为1得customers, 思维比较绕，实际编码的时候也遇到不知如何下手的情况，
+        // 查询别人的思路，可动过滑动窗口算法来算，时间和空间复杂度也比较优秀。
+        // 首先循环将初始满意客户数量累加。将第一轮<x并且不高兴的相加设置为初始值，然后往右移动，移走的就减去当前客户数，
+        // 添加的加上当前客户数，每轮循环记录下最大值。结果就是初始满意客户数+每轮循环记录下的最大值
+        // before
+        // var maxSatisfied = function(customers, grumpy, X) {
+        //     console.log(customers, grumpy, X)
+        //     let max = 0, index = 0
+        //     for(var i=0; i<customers.length; i++) {
+        //         if(grumpy[i]) {
+        //             max = Math.max(customers[i])
+        //             index = customers.indexOf(max)
+        //         }                               
+        //     }   
+        //     console.log(999, max, index, index-X)  
+        //     for(var j = index - X;j<= index + X; j++) {
+        //         if(customers[j]) {
+        //             console.log(j)
+        //         }
+        //     }             
+        // }
+        // after
+        // var maxSatisfied = function(customers, grumpy, X) {
+        //     console.log(customers, grumpy, X)
+        //     let regular = 0, total = 0, max = 0
+        //     for(var i=0; i<customers.length; i++) {
+        //         if(!grumpy[i]) { regular += customers[i] }
+        //         if(i<X && grumpy[i]) {
+        //             total += customers[i]
+        //         } else {
+        //             if(grumpy[i-X]) { total -= customers[i-X]}
+        //             if(grumpy[i]) { total += customers[i] }
+        //         }
+        //         if(total>max) {max = total}
+        //     }
+        //     return regular+max
+        // }
+        // maxSatisfied([1,0,1,2,1,1,7,5], [0,1,0,1,0,1,0,1], 3)
+
+        // 翻转图像 832  2021/2/24
+        var flipAndInvertImage = function(A) {
+            console.log(A)
+            A.forEach((ele, index) => {            
+              ele = ele.reverse()
+              console.log(A[index])
+              for(var i=0; i<A[index].length;i++) {
+                  A[index][i] = A[index][i]?0:1
+              }
+            });
+            console.log(A)
+        }
+        flipAndInvertImage ([[1,1,0],[1,0,1],[0,0,0]])
+
+        </script>
+    </body>
+</html>
