@@ -234,15 +234,45 @@
         // };
         // transpose([[1,2,3],[4,5,6]])
 
-        // 面试题 16.17. 连续数列  2021/2/25 (undone)
+        // 面试题 16.17. 连续数列  2021/2/25
         // 给定一个整数数组，找出总和最大的连续数列，并返回总和。
         var maxSubArray = function(nums) {
-            let sum = 0, max = 0
-            for(var i=0; i<nums.length; i++) {
-                
+            // 动态规划，状态转移方程。f(i) = Math.max(f(i-1)+nums[i], nums[i])
+            // let len = nums.length
+            // let dp = new Array(len)    
+            // dp[0] = nums[0]
+            // for(var i=1; i<nums.length; i++) {
+            //     dp[i] = Math.max(dp[i-1]+nums[i], nums[i])               
+            // }
+            // return Math.max(...dp)
+            
+            let sum=-Infinity, max= -Infinity;
+            for(var i=0; i< nums.length; i++) {
+                if(sum<0) {
+                    sum = nums[i]
+                } else {
+                    sum+=nums[i]
+                }
+                max = Math.max(sum, max)
             }
+            console.log(max)
         }
         maxSubArray([-2,1,-3,4,-1,2,1,-5,4])
+
+        // 零钱兑换 322 2021/3/2 (undone)
+        // 给定不同面额的硬币 coins 和一个总金额 amount。编写一个函数来计算可以凑成总金额所需的最少的硬币个数。
+        // 如果没有任何一种硬币组合能组成总金额，返回 -1。
+        // 你可以认为每种硬币的数量是无限的。
+        // var coinChange = function(coins, amount) {
+        //     let res = 0
+        //     console.log(coins, amount)
+        //     while(amount>0) {
+        //         for(var i=0;i<coins.length;i++) {
+        //             if(amount-coins[i]>0) res++
+        //         }
+        //     }
+        // };
+        // coinChange([1, 2, 5], 11)
         </script>
     </body>
 </html>
