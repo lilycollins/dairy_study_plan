@@ -4,7 +4,6 @@
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>leetcode</title>
-        <img>
     </head>
     <body>
         <script>
@@ -95,19 +94,17 @@
         // };
         // minCount([2,3,10])
 
-        // 数组中数字出现的次数(undone)
+        // 数组中数字出现的次数
         // 一个整型数组 nums 里除两个数字之外，其他数字都出现了两次。请写程序找出这两个只出现一次的数字。要求时间复杂度是O(n)，空间复杂度是O(1)。
         // var singleNumbers = function(nums) {   
-        //     console.log('onlyonce', nums)
+        //     let res = []
         //     for(var i=0;i<nums.length;i++) {
-        //         if(nums.indexOf(nums[i])!==nums.lastIndexOf(nums[i])) {
-        //             // delete nums[nums.indexOf(nums[i])]
-        //             // delete nums[nums.lastIndexOf(nums[i])]
+        //         if(nums.indexOf(nums[i])===nums.lastIndexOf(nums[i])) {
+        //             res.push(nums[i])
         //         }
         //     }
-        //     console.log(nums)
-        // }
-        
+        //     return res
+        // }      
         // singleNumbers([1,2,10,4,1,4,3,3])
 
         // // 设计一个算法，找出数组中最小的k个数。以任意顺序返回这k个数均可。
@@ -234,45 +231,128 @@
         // };
         // transpose([[1,2,3],[4,5,6]])
 
-        // 面试题 16.17. 连续数列  2021/2/25
-        // 给定一个整数数组，找出总和最大的连续数列，并返回总和。
-        var maxSubArray = function(nums) {
-            // 动态规划，状态转移方程。f(i) = Math.max(f(i-1)+nums[i], nums[i])
-            // let len = nums.length
-            // let dp = new Array(len)    
-            // dp[0] = nums[0]
-            // for(var i=1; i<nums.length; i++) {
-            //     dp[i] = Math.max(dp[i-1]+nums[i], nums[i])               
-            // }
-            // return Math.max(...dp)
-            
-            let sum=-Infinity, max= -Infinity;
-            for(var i=0; i< nums.length; i++) {
-                if(sum<0) {
-                    sum = nums[i]
-                } else {
-                    sum+=nums[i]
-                }
-                max = Math.max(sum, max)
-            }
-            console.log(max)
-        }
-        maxSubArray([-2,1,-3,4,-1,2,1,-5,4])
+        // // 面试题 16.17. 连续数列  2021/2/25
+        // // 给定一个整数数组，找出总和最大的连续数列，并返回总和。
+        // var maxSubArray = function(nums) {
+        //     // 动态规划，状态转移方程。f(i) = Math.max(f(i-1)+nums[i], nums[i])
+        //     // let len = nums.length
+        //     // let dp = new Array(len)    
+        //     // dp[0] = nums[0]
+        //     // for(var i=1; i<nums.length; i++) {
+        //     //     dp[i] = Math.max(dp[i-1]+nums[i], nums[i])               
+        //     // }
+        //     // return Math.max(...dp)          
+        //     let sum=-Infinity, max= -Infinity;
+        //     for(var i=0; i< nums.length; i++) {
+        //         if(sum<0) {
+        //             sum = nums[i]
+        //         } else {
+        //             sum+=nums[i]
+        //         }
+        //         max = Math.max(sum, max)
+        //     }
+        //     console.log(max)
+        // }
+        // maxSubArray([-2,1,-3,4,-1,2,1,-5,4])
 
         // 零钱兑换 322 2021/3/2 (undone)
         // 给定不同面额的硬币 coins 和一个总金额 amount。编写一个函数来计算可以凑成总金额所需的最少的硬币个数。
         // 如果没有任何一种硬币组合能组成总金额，返回 -1。
         // 你可以认为每种硬币的数量是无限的。
+        // 有bug。[186,419,83,408] 6249 用例没通过 20.下面的解法只是考虑以最大可能取最大硬币数值，后面也许会导致兼容不上
         // var coinChange = function(coins, amount) {
         //     let res = 0
+        //     coins = coins.sort((a,b)=>{return b-a})
         //     console.log(coins, amount)
+        //     if(amount == 0) {
+        //         return -1
+        //     }
         //     while(amount>0) {
-        //         for(var i=0;i<coins.length;i++) {
-        //             if(amount-coins[i]>0) res++
+        //         for(var i = 0; i < coins.length; i++){
+        //             if(amount>=coins[i]){
+        //                 amount = amount-coins[i];                       
+        //                 res++;
+        //                 i--;
+        //             }
+        //         }
+        //         if(amount==0){return res}
+        //         else {
+        //             return -1
         //         }
         //     }
         // };
-        // coinChange([1, 2, 5], 11)
+        // console.log(coinChange([186,419,83,408], 6249))
+        // 根据对象多种字段排序
+        // let arr= [
+        //     {
+        //         id: 1,
+        //         istop: '',
+        //         name: 'yi'
+        //     },
+        //     {
+        //         id: 2,
+        //         istop: '',
+        //         name: 'er'
+        //     },
+        //     {
+        //         id: 7,
+        //         istop: '',
+        //         name: 'qi'
+        //     },
+        //     {
+        //         id: 5,
+        //         istop: '',
+        //         name: 'wu'
+        //     },
+        //     {
+        //         id: 4,
+        //         istop: '',
+        //         name: 'si'
+        //     },
+        //     {
+        //         id: 6,
+        //         istop: 1,
+        //         name: 'liu'
+        //     },
+        //     {
+        //         id: 3,
+        //         istop: '',
+        //         name: 'san'
+        //     },
+        // ]
+        // arr.sort((a, b)=>{
+        //     return (b.istop-a.istop) || (a.id - b.id)
+        // })
+        // console.log(arr)
+
+        // 快排
+        // function quickSort(arr) {
+        //     if(arr.length<2){ return arr}
+        //     var pivot = Math.floor(arr.length / 2); // Math.floor 向下取整
+        //     var base = arr.splice(pivot, 1)[0];
+        //     let left = [], right = []
+        //     for(var i=0; i<arr.length;i++) {
+        //         if(arr[i]<=base) { left.push(arr[i]) } else { right.push(arr[i]) }
+        //     }
+        //     return quickSort(left).concat([base], quickSort(right))
+        // }
+        // console.log(quickSort([6,4,5,7,1,3,8,9]))
+        
+        // 冒泡排序
+        // function bubleSort(arr) {
+        //     for(var i=0; i<arr.length; i++) {
+        //         for(var j=1;j<arr.length;j++){
+        //             let temp = null
+        //             if(arr[j-1]>arr[j]) {
+        //                 temp = arr[j]
+        //                 arr[j] = arr[j-1]
+        //                 arr[j-1] = temp
+        //             }
+        //         }           
+        //     }
+        //     console.log(arr)
+        // }
+        // bubleSort([6,4,5,7,1,3,8,9])
         </script>
     </body>
 </html>
