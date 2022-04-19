@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        // 买卖股票的最佳时机
+        // 方法1,暴力法 时间复杂度n^2
+        // var maxProfit = function(prices) {
+        //     console.log(prices)
+        //     let arr = []
+        //     for(var i=0;i<prices.length;i++){
+        //         for(var j= prices.length-1;j>=0;j--){
+        //             let res = prices[j]-prices[i]
+        //             if(prices[j]>prices[i] && j>i && arr.length == 0){
+        //                 arr.push(res)
+        //             }
+        //             else{
+        //                 if(res>0 && j>i && res>arr[arr.length-1]){
+        //                     arr.push(res)
+        //                 }
+        //             }
+        //         }
+        //     }
+        //     return arr[arr.length-1]?arr[arr.length-1]:0
+        // };
+         // 方法2 前i天的最大收益 = max{前i-1天的最大收益，第i天的价格-前i-1天中的最小价格} 性能竟然更差
+        // var maxProfit = function(prices) {
+        //     console.log(prices)
+        //     let profit = new Array(prices.length).fill(0)
+        //     profit[0] = 0
+        //     for(var i=1;i<prices.length;i++){
+        //         // 公式关系
+        //         // 前i-1天的最小价格
+        //         let arr = prices.slice(0,i)
+        //         arr = arr.sort((a,b)=>{return a-b})
+        //         profit[i] = Math.max(profit[i-1],prices[i] - arr[0])
+        //     }
+        //     return profit.sort((a,b)=>{return b-a})[0]
+        // };
+        // 一次遍历
+        // var maxProfit = function(prices) {
+        //     console.log(prices)
+        //     let minPrice = prices[0]
+        //     let maxProfit = 0
+        //     for(var i=0;i<prices.length;i++){
+        //         if(prices[i]<minPrice){
+        //             minPrice = prices[i]
+        //         }
+        //         else if(prices[i]-minPrice > maxProfit){
+        //             maxProfit = prices[i] - minPrice
+        //         }
+        //     }
+        //     return maxProfit        
+        // };
+        // console.log(maxProfit([7,1,5,3,6,4]))
+
+
+
+        // 定一个数组，它的第 i 个元素是一支给定股票第 i 天的价格。
+        // 设计一个算法来计算你所能获取的最大利润。你可以尽可能地完成更多的交易（多次买卖一支股票）。
+        // 你不能同时参与多笔交易（你必须在再次购买前出售掉之前的股票）
+        // var maxProfit = function(prices) {
+        //     console.log(prices)
+        //     let profit = 0
+        //     for(var i=1;i<prices.length;i++){
+        //         if(prices[i]>prices[i-1]){
+        //             profit += prices[i] - prices[i-1]
+        //         }
+        //     }
+        //     console.log(profit)
+        // };
+        // maxProfit([7,1,5,3,6,4])
+
+
+        // 给定一个递增数组K，查找符合两数相加等于N的组合;
+        // 方法1,对象法
+        // function getMatch(arr,N){
+        //     let obj = {}
+        //     let result = []
+        //     for(var i=0;i<arr.length;i++){  
+        //         if(obj[arr[i]]){
+        //             result.push([obj[arr[i]],arr[i]])
+        //         }   
+        //         else{
+        //             obj[N - arr[i]] = arr[i]
+        //         }
+        //     }
+        // }
+        // 方法2 双指针法
+        // function getMatch(arr,N){
+        //     let result = []
+        //     let l = 0,r = arr.length-1
+        //     while(l<r){
+        //         if(arr[l]+arr[r]<N){l++}
+        //         else if(arr[l]+arr[r]>N){r--}
+        //         else if(arr[l]+arr[r]=N){
+        //             let temp = [arr[l],arr[r]]
+        //             result.push(temp)
+        //             l++
+        //             r--
+        //         }
+        //     }
+        //     console.log(result)
+        // }
+        // getMatch([1,2,3,4,5,6,7,8,9],9)
+        
+
+
+        // 查找两个字符串中的最长的公共子串
+
+
+    </script>
+</body>
+</html>

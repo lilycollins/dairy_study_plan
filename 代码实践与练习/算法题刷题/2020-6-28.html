@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>开心刷题啦</title>
+</head>
+<body>
+    <script>
+        console.log('----------lets start -----------')
+        // 超大整数相加
+        function sumBigNumber(a,b){
+            let result='',temp = 0
+            let aArr = a.split('')
+            let bArr = b.split('')
+            while(aArr.length || bArr.length || temp){
+                // 两次按位取反操作可以将string或者NaN类型的值转换为数字计算
+                temp += ~~aArr.pop() + ~~bArr.pop()
+                result = (temp % 10) + result
+                temp = temp > 9?1:0
+            }
+            return result          
+        }
+        // console.log(sumBigNumber('9', '1'))
+
+        // 超大整数相乘
+        // 竖式相乘法，用num2的每一项去乘num1 从第二项开始需要在后面补0，最后再使用字符串相加的方式
+        function mulBigNumber(num1,num2){
+            let arr1 = num1.split(''), arr2 = num2.split(''),addZe = 0,res = '0',temp = 0,result=''
+            for(let i =arr2.length-1;i>=0;i--){
+                addZe = arr2.length - i - 1                          
+                temp = i==arr2.length-1 ? singleMulti(num1,arr2[i]) +'': singleMulti(num1,arr2[i]) + '0'.padStart(addZe, '0')
+                res = sumBigNumber(res, temp);
+            } 
+            res = res.replace(/^0+/, '')?res.replace(/^0+/, ''):'0' 
+            return res
+             
+        }
+        function singleMulti(nums,n){
+            let temp = 0,result = '',arr = nums.split('')
+            while(arr.length || temp){
+                temp += ~~arr.pop() * n
+                result = (temp % 10) + result
+                temp = temp < 10 ? 0 : Math.floor(temp/10)
+            }
+            return result
+        }
+        // singleMulti('1000','1')
+        mulBigNumber("9","9")
+
+        // 数组中的第K个最大元素。考虑时间复杂度，宜使用快速排序法，平均时间复杂度是O(N)
+        var findKthLargest = function(nums, k) {
+            let arr = nums.sort((a,b)=>{return b-a})
+            console.log(arr[k-1])
+            return arr[k-1]
+            console.log(arr)
+        };
+        findKthLargest([3,2,1,5,6,4],2)
+        
+    </script>
+</body>
+</html>

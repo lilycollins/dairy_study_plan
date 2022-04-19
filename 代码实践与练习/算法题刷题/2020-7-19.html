@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>最长公共子串</title>
+</head>
+<body>
+    <script>
+        var longestCommonSubsequence = function(text1, text2) {
+            // 动态规划
+            console.log(text1,text2)
+            let req = new Array(text1.length + 1)
+            for(var i = 0; i<=text1.length;i++){
+                req[i] = new Array(text2.length+1).fill(0)
+            }
+            for(var i=1;i<text1.length+1;i++){
+                for(var j=1;j<text2.length+1;j++){
+                    if(text1[i-1] == text2[j-1]){req[i][j] = req[i-1][j-1]+1}
+                    else {req[i][j] = Math.max(req[i-1][j],req[i][j-1])}
+                }
+            }
+            console.log(req,req[text1.length][text2.length])
+
+        };
+        longestCommonSubsequence('abcde','cde')
+    </script>
+    
+</body>
+</html>

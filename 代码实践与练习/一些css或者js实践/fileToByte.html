@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <div>
+        <span>请选择需要转换为excel的文件内容:</span>
+        <input type="text" name="" id="fileContent">
+    </div>
+    <div>
+        <span>请选择需要转换为excel的文件名&emsp;:</span>
+        <input type="text" name="" id="fileName">
+    </div>
+    
+    <button onclick="changeFileToByte()">转换</button>
+    <script>
+        function changeFileToByte(){
+            var fileContent = document.getElementById('fileContent').value;
+            var fileName = document.getElementById('fileName').value;
+            let res ={
+                content:fileContent,
+                fileName:fileName
+            }
+            console.log(res)
+            this.downloadBase64(res,'application/vnd.ms-excel')
+        }
+              // base64转Blod下载
+        function downloadBase64(data,mine) {
+            console.log(data,mine)
+            var file = this.dataURLtoBlob(data.content,mine)
+            let url = window.URL.createObjectURL(file)
+            let link = document.createElement('a')
+            link.style.display = 'none'
+            link.href = url
+            // 获取文件名
+            // download 属性定义了下载链接的地址而不是跳转路径
+            link.setAttribute('download', data.fileName)
+            document.body.appendChild(link)
+            link.click()
+            link.remove()
+        }
+        //将base64转换为Blob
+        function dataURLtoBlob(dataurl,mine) {
+            var arr = dataurl,
+                bstr = atob(arr),
+                n = bstr.length,
+                u8arr = new Uint8Array(n);
+            while (n--) {
+                u8arr[n] = bstr.charCodeAt(n);
+            }
+            return new Blob([u8arr], { type: mine });
+        }
+        </script>
+</body>
+</html>

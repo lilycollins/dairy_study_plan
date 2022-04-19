@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        console.log("--------------let's start------------")
+        // 要想观测到更高的气温，至少需要等待的天数。如果气温在这之后都不会升高，请在该位置用 0 来代替。
+        // 可以用暴力解法来遍历，但是时间复杂度过高，所以用栈，感觉叫动态规划更合适
+        // 进栈-出栈-赋值-循环
+        var dailyTemperatures = function(T) {
+            console.log(T)
+            let stack = [],result = new Array(T.length).fill(0)
+            for(var i=0;i<T.length;i++){
+                // 出栈
+                // 循环遍历条件
+                while(stack.length && T[stack[stack.length-1]] < T[i]){
+                    // 赋值
+                    result[stack[stack.length-1]] = i - stack[stack.length-1]
+                    stack.pop()
+                }
+                // 进栈
+                stack.push(i)
+                
+            }
+                console.log(result)
+                return result
+            }              
+        dailyTemperatures([73, 74, 75, 71, 69, 72, 76, 73])  
+        // [1, 1, 4, 2, 1, 1, 0, 0] 
+
+        // .使括号有效的最少添加   给定一个由 '(' 和 ')' 括号组成的字符串 S，我们需要添加最少的括号（ '(' 或是 ')'，可以在任何位置），以使得到的括号字符串有效。
+        var minAddToMakeValid = function(S) {
+            const s = S
+            let stack = [],count =0
+            for(var i=0;i<S.length;i++){
+                // 出栈条件-栈顶为'('且后面有为')'的项
+                while(stack.length && stack[stack.length-1]=='(' && S[i] ==')' ){
+                    S = S.replace(')','')
+                    stack.pop()
+                    count++
+                }
+                if(S[i]=='('){
+                    stack.push(S[i])
+                }              
+            }
+            console.log(S,count)
+            return S.length - count
+        };
+        minAddToMakeValid("()))))")
+    </script>
+</body>
+</html>

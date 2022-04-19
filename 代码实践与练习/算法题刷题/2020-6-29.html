@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>刷题啦</title>
+</head>
+<body>
+    <script>
+        // // 实现一个杨辉三角形，在杨辉三角中，每个数是它左上方和右上方的数的和。
+        // var generate = function(numRows) {
+        //     let res = []
+        //     for(let i=0;i<numRows;i++){
+        //         res.push(new Array(i+1).fill(1))
+        //         if(i>=2){
+        //             for(let j =0;j<res[i].length;j++){
+        //                 res[i][j] = ~~res[i-1][j-1] + ~~res[i-1][j]
+        //             }
+        //         }
+        //     }
+        // };
+        // generate(5)
+
+
+
+    // // 反转字符串，不要给另外的数组分配额外的空间，你必须原地修改输入数组、使用 O(1) 的额外空间解决这一问题。
+    // // s.reverse()即可
+    // var reverseString = function(s) {
+    //     console.log(s,s.length/2)
+    //     let temp 
+    //     for(var i=0;i<s.length/2;i++){
+    //         console.log(i,s[i])
+    //         temp = s[i]
+    //         s[i] = s[s.length - i - 1]          
+    //         s[s.length - i - 1] = temp
+    //     }
+    //     console.log(s)
+    // };
+    // reverseString(["h","e","l","l","o"])
+
+
+
+    // 反转链表  1->2->3->4->5->NULL
+    // var reverseList = function(head) {
+    //     // 迭代法
+    //     if(!head || !head.next){return head}
+    //     let prev,current = head
+    //     while(current){
+    //         let next = current.next
+    //         current.next = prev
+    //         prev = current
+    //         current = next
+    //     }
+    //     return head
+    // };
+    // reverseList({val: 1,next: { val: 2, next: { val: 3, next: [] } }})
+
+
+
+    // // 删除node的第一个节点 --- 此题需注意复杂数据类型赋值的地址空间指向的问题
+    // var deleteNode = function(node) {
+    //     // node =Object.assign({},node.next)
+    //     // node = node.next
+    //     node.val = node.next.val
+    //     node.next = node.next.next
+    //     // var a = {}
+    //     // var b = a
+    //     // a.val = '111'
+    //     // 此时a=b={val:'111'}
+    //     // a = {}
+    //     // 此时 a={} b={val:'111'}
+    // }
+    // deleteNode({val: 1,next: { val: 2, next: { val: 3, next: [] } }})
+
+
+    // 盛最多水的容器 n 的值至少为 2
+    // 暴力法，时间复杂度大n^2 不可取
+    // var maxArea = function(height) {
+    //     let w,h,result=0
+    //     // 宽度为索引值的差，高度为两个边界的高度的最小值
+    //     for(var i=0;i<height.length;i++){
+    //         for(var j = (height.length-1);j>=0;j--){
+    //             w = j - i
+    //             h = Math.min(height[i],height[j])
+    //             let area = Math.abs(w*h)
+    //             if(result<area){
+    //                 result = area
+    //             }               
+    //         }
+    //     }
+    //     console.log(result)
+
+    // };
+    // 双指针法 每次只移动最短边来判断面积大小 时间复杂度为n
+    // var maxArea = function(height){
+    //     let max=0,l=0,r=height.length-1
+    //     while(l<r){
+    //         max = Math.max(max,Math.max((r-l)*Math.min(height[l],height[r])))
+    //         if(height[l]<height[r]){
+    //             l++
+    //         }else{
+    //             r--
+    //         }
+    //     }
+    //     console.log(max)
+    // }
+    // maxArea([1,8,6,2,5,4,8,3,7])
+
+
+    
+    // 接雨水 -- 可以理解为先找出最大面积，减去内部柱子的面积(需要注意柱子高度高于水平面的情况，不然会减多了)，然后再递归
+    // 勉强算出来的可是感觉逻辑绕来绕去的，明天看看有没有更好的解法,做错了，思路应该也有问题
+    var stack = []
+    var trap = function(height) {
+        let max = 0,left=0,right = height.length-1,a,b,c,sum=0
+        while(left<right){
+            var w = right - left
+            var h = Math.min(height[left],height[right])
+            if(max <= w*h){
+                max = w*h
+                a = left,b=right,c=h
+            }
+            if(height[left]<height[right]){ left++}
+            else{right--}
+        }
+        sum = max - add(height.slice(a,b),c)
+        stack.push(sum)
+        // 递归机制
+        if(a>=2){
+            trap(height.slice(0,a+1))
+        }
+        if(b<= height.length -3){
+            trap(height.slice(b,height.length))
+        }
+        return stack.reduce((a,b)=>{return a+b})
+    };
+    function add(arr,c){
+        let sum = 0
+        arr = arr.map((ele)=>{
+            if(ele>c){return ele = c}
+            else{return ele}
+        })
+        return arr.length>0 ? arr.reduce((a,b)=>{return a+b}):0
+    }
+    console.log(trap([0,1,0,2,1,0,1,3,2,1,2,1]))
+
+    
+    </script>
+</body>
+</html>

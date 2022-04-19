@@ -1,0 +1,190 @@
+1.BFC的功能：（1）包住浮动元素，使得内部浮动元素不会导出乱跑；（2）兄弟元素之间划清界限，和		  浮动元素产生边界
+
+2.CSS三角形：width：0；height：0；border：100px solid transparent；border-top-color：pink
+
+3.函数防抖：当持续触发事件时，一定时间段内没有再触发事件，事件处理函数才会执行一次，没有设定的时间到来之前 ，又一次触发了事件，就重新开始延时。
+// 防抖函数
+function debounce(fn,interval){
+    let timer  = null;
+    return function(){
+        if(timer){clearTimeout(timer)}
+        var args = arguments,self = this; // fn所需要的参数
+        timer = setTimeout(() => {
+            timer = null;
+            fn.apply(self, args);
+        }, interval);
+    }
+}
+
+4.函数节流：当持续触发事件时，保证一定时间段内只调用一次事件处理函数。
+// 节流函数
+function throttle(fn,interval){   
+    var timer;//定时器
+    var _fn = fn; // 保存需要被延迟执行的函数引用
+    var firstTime = true;//是否初次调用
+    return function(){
+        var args = arguments,self = this;      
+        if(firstTime){
+            // 如果是第一次调用不需要延迟执行
+            _fn.apply(self,args)
+            // 如果定时器还在，说明前一次延迟执行还没有完成
+            if(timer){return false;}         
+        }
+        timer = setTimeout(() => {
+            if(timer){clearTimeout(timer)}// 清除定时器 避免下一次return false
+            timer = null;
+            _fn.apply(self, args);
+        }, interval);
+    }
+}
+
+5.浅拷贝和深拷贝
+  基本类型，变量名和变量值存储在栈内存中，复制时，栈内存会新开辟一个内存。
+  引用数据类型，变量名存在栈内存中，值存在于堆内存中，但是栈内存会提供一个引用的地址指向堆内存中的值。如果直接用=拷贝，拷贝的是引用地址，而两者指向的是同一个地址，所以一方改变值，另一方也会相应改变。如果在堆内存中也开放一个新的内存地址存放值，就可以达到深拷贝的效果。
+
+（1）基本类型：string,number,boolean,null,undefined,symbol
+
+（2）引用类型：Function,Array,Object
+   function deepClone(data){
+    const type = judgeType(data);
+    console.log(data,type)
+    let obj;
+    if(type === 'array'){
+        obj = [];
+        for(let i=0,len=data.length;i<len;i++){
+        obj.push(this.deepClone(data[i]));
+        }
+    }
+    else if(type === 'object'){
+        obj = [];
+        for(let key in data){
+            obj[key]=this.deepClone(data[key]);
+            }
+    }
+    else{
+        // 不再具有下一层次
+        return data;
+    }
+    return obj;
+}
+function judgeType(obj){
+    //tostring会返回对应不同的标签的构造函数
+    const toString=Object.prototype.toString(obj);
+    const map={
+    '[object Boolean]':'boolean',
+    '[object Number]':'number',
+    '[object String]':'string',
+    '[object Function]':'function',
+    '[object Array]':'array',
+    '[object Date]':'date',
+    '[object RegExp]':'regExp',
+    '[object Undefined]':'undefined',
+    '[object Null]':'null',
+    '[object Object]':'object',
+    };
+    if(obj instanceof Element){
+        return'element';
+    }
+    return map[toString.call(obj)];
+}
+
+6.检测对象的方法
+typeof操作符，对function，string，number，underfined等类型的判断毫无压力，但是对Array对象不起作用，array和null会判断为object。
+instanceof操作符，检测对象的原型链是否指向构造函数的prototype对象，返回bool值
+
+7.数组去重（性能由好到坏）
+ (1) for...of + Object
+ function distinct(a,b){
+    let arr = a.concat(b);
+    let result =[],obj = {};
+    for(let i of arr){
+        if(!obj[i]){
+            result.push(i);
+            obj[i] =i
+        }
+    }
+    return result;
+ }
+  (2)new Set()------Array.from(new Set([...a,...b]))，不能去空，用u.filter(d=>d)去空项
+  (3)Array.sort() 数组排序，然后判断响铃元素是否相等来排除
+  (4)for...of + includes() 
+     先创建一个空数组，当 includes() 返回 false 的时候，就将该元素 push 到空数组中 
+ （5）双重for循环 -----外层循环遍历元素，内层循环检查是否重复
+  
+8.数组乱序
+function shuffle(arr) {
+    for (let i=arr.length-1; i>=0; i--) {
+        let rIndex = Math.floor(Math.random()*(i+1));
+        let temp = arr[rIndex];
+        arr[rIndex] = arr[i];
+        arr[i] = temp;
+    }
+    return arr;
+}
+
+9.手写call，apply，bind（暂时放弃）
+
+
+10.继承
+  function Animal(){}
+  原型方法:Animal.prototype.name = 'zhangsan';Animal.prototype.eat = function(e){...}
+
+  1.原型链继承：function dog(){
+                   dog.prototype = new Animal();
+		   var dogs = new dog();
+		} （缺点是无法实现多继承）
+  
+  2.构造函数继承：function dog(){
+		    Animal.call(this)
+		    //再扩充
+		}
+		  var dogs= new dog();（可以实现多继承，但是不能继承原型链上的属性和方法）
+  
+  3.组合继承： function dog(){
+		    Animal.call(this);
+		}
+		dog.prototype = new Animal();
+		dog.prototype.constructor = dog;
+		var dogs = new dog()(缺点是调用了两次构造函数生成了两份实例)
+
+  4.寄生组合继承：function dog(){
+		    Animal.call(this);
+		}
+		(function(){
+		  var Super = function(){};
+		  Super.prototype = Animal.prototype;
+                  dog.prototype = new Super()
+		})()
+		var dogs = new dog()
+
+
+11.jsonp的实现
+function jsonp(obj){
+            console.log(obj);
+            // 定义一个处理jsonp返回数据的回调函数
+            window["callback"] = function(object){
+                obj.success(JSON.parse(object))
+            }
+            var script = document.createElement('script');
+            // 组合请求url
+            script.src = obj.url +"?fn=callback";
+            for(var key in obj.data){
+                script.src += '&' +key +'='+obj.data[key]
+            }
+            document.getElementsByTagName('body')[0].appendChild(script);       
+        }
+//创建一个script标签，设置该标签的src为url，script.src = obj.url+'?fn=callback';然后再将data拼接到地址url中，最后把script标签append到document中。
+        
+12.箭头函数和普通函数的区别
+  箭头函数是匿名函数，不能作为构造函数，不能使用new
+  箭头函数不能绑定arguments取而代之用rest参数解决
+  箭头函数没有原型属性
+  箭头函数的this永远指向其上下文的this，会捕获上下文的this值，作为自己的this值
+
+13.watch与computed的区别
+  computed只有当页面数据变化时才会计算，当数据没有变化就读取缓存，而watch每次发生变化都会触发事件
+
+14.垂直水平居中
+  固定宽高：1，利用绝对定位+margin或者calc；
+  不固定宽高：1.absolute+transform：translate（-50%，-50%）；2.lineheight；3.display：table-cell、text-align、vertical-align
+	     3.flex布局 justify-content，align-items；4.grid布局 父级display：grid，子集 justify-self，align-self：center

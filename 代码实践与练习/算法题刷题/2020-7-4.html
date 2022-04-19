@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        // 查找数组中是否有数字相加为一个固定值，有返回true 无返回false
+        function isMatch(arr,i,num){
+            if(num == 0 ){return true}
+            else if(i==0){return arr[0]==num}
+            else if(arr[i] > num){isMatch(arr,i-1,num)}
+            else{
+                let a = isMatch(arr,i-1,num-arr[i])
+                let b = isMatch(arr,i-1,num)
+                console.log(a,b)
+                return a||b
+            }                
+        }
+        console.log(isMatch([3,34,4,12,5,2],5,9))
+        // 没有得出想要的结果
+    </script>
+</body>
+</html>

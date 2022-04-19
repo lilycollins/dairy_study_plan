@@ -1,0 +1,2 @@
+console.log("hello world nodejs!")
+stream流将内容写入文件

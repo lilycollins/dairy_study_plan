@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <script src="https://cdn.bootcss.com/echarts/4.1.0.rc2/echarts.js"></script>
+    <title>canvasDemo</title>
+    <style>
+        .box {
+            width: 300px;
+            height: 300px;
+            border: 1px solid #000;
+            border-radius: 50%;
+            position: relative;
+            margin: 215px 0 0 288px;
+        }
+        
+        .ship {
+            background-color: gray;
+            position: absolute;
+            left: 145px;
+            top: 135px;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            animation: myOrbit 10s linear infinite;
+        }
+        
+        @keyframes myOrbit {
+            from {
+                transform: rotate(0deg) translateX(150px) rotate(0deg);
+            }
+            to {
+                transform: rotate(360deg) translateX(150px) rotate(-360deg);
+            }
+        }
+        
+        .circleProgress_wrapper {
+            width: 200px;
+            height: 200px;
+            margin: 50px auto;
+            position: relative;
+            border: 1px solid #ddd;
+        }
+        
+        .wrapper {
+            width: 100px;
+            height: 200px;
+            position: absolute;
+            top: 0;
+            overflow: hidden;
+        }
+        
+        .right {
+            right: 0;
+        }
+        
+        .left {
+            left: 0;
+        }
+        
+        .circleProgress {
+            width: 160px;
+            height: 160px;
+            border: 20px solid rgb(232, 232, 12);
+            border-radius: 50%;
+            position: absolute;
+            top: 0;
+            -webkit-transform: rotate(45deg);
+        }
+        
+        .rightcircle {
+            border-top: 20px solid green;
+            border-right: 20px solid green;
+            right: 0;
+            -webkit-animation: circleProgressLoad_right 5s linear infinite;
+        }
+        
+        .leftcircle {
+            border-bottom: 20px solid green;
+            border-left: 20px solid green;
+            left: 0;
+            -webkit-animation: circleProgressLoad_left 5s linear infinite;
+        }
+        
+        @-webkit-keyframes circleProgressLoad_right {
+            0% {
+                border-top: 20px solid #ED1A1A;
+                border-right: 20px solid #ED1A1A;
+                -webkit-transform: rotate(45deg);
+            }
+            50% {
+                border-top: 20px solid rgb(232, 232, 12);
+                border-right: 20px solid rgb(232, 232, 12);
+                border-left: 20px solid rgb(81, 197, 81);
+                border-bottom: 20px solid rgb(81, 197, 81);
+                -webkit-transform: rotate(225deg);
+            }
+            100% {
+                border-left: 20px solid green;
+                border-bottom: 20px solid green;
+                -webkit-transform: rotate(225deg);
+            }
+        }
+        
+        @-webkit-keyframes circleProgressLoad_left {
+            0% {
+                border-bottom: 20px solid #ED1A1A;
+                border-left: 20px solid #ED1A1A;
+                -webkit-transform: rotate(45deg);
+            }
+            50% {
+                border-bottom: 20px solid rgb(232, 232, 12);
+                border-left: 20px solid rgb(232, 232, 12);
+                border-top: 20px solid rgb(81, 197, 81);
+                border-right: 20px solid rgb(81, 197, 81);
+                -webkit-transform: rotate(45deg);
+            }
+            100% {
+                border-top: 20px solid green;
+                border-right: 20px solid green;
+                border-bottom: 20px solid green;
+                border-left: 20px solid green;
+                -webkit-transform: rotate(225deg);
+            }
+        }
+        
+        .star_bg {
+            width: 100%;
+            height: 900px;
+            background-color: #333;
+            position: relative;
+        }
+        
+        .stars {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 1px;
+            height: 1px;
+            box-shadow: -447px 387px #c4c4c4, -401px 118px #fafafa, -109px 217px #d9d9d9, -680px -436px #e3e3e3;
+            animation: fly 8s linear infinite;
+            -webkit-animation: fly 8s linear infinite;
+            -moz-animation: fly 8s linear infinite;
+            transform-style: preserve-3d;
+            -webkit-transform-style: preserve-3d;
+            -moz-transform-style: preserve-3d;
+        }
+        
+        @keyframes fly {
+            0% {
+                top: 60%;
+                left: 60%;
+                /* width: 3px;
+                height: 3px; */
+            }
+            50% {
+                top: 70%;
+                left: 70%;
+                /* width: 2px;
+                height: 2px; */
+            }
+            100% {
+                top: 60%;
+                left: 60%;
+                /* width: 3px;
+                height: 3px; */
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <!-- 为 ECharts 准备一个具备大小（宽高）的 DOM -->
+    <!-- <div id="main" style="width: 600px;height:400px;"></div> -->
+    <div class="box">
+        <div class="ship"></div>
+    </div>
+    <div class="circleProgress_wrapper">
+        <div class="wrapper right">
+            <div class="circleProgress rightcircle"></div>
+        </div>
+        <div class="wrapper left">
+            <div class="circleProgress leftcircle"></div>
+        </div>
+    </div>
+    <div class="star_bg">
+        <div class="stars"></div>
+    </div>
+
+</body>
+
+</html>

@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+     <script>
+        //  function my(a,b){
+        //      console.log(arguments);
+        //  }
+        //  my(1,2,3,4);
+        //  function sum(n){
+        //      console.log(arguments)
+        //      if(n==1){
+        //          return 1;
+        //      }
+        //      else{
+        //          console.log('第'+n+'个',arguments.callee(n-1));
+        //          return n * arguments.callee(n-1);
+        //      }
+        //  }
+        //  console.log(sum(5))
+        var obj={
+            foo:function(){
+                console.log(this);
+            }
+        }
+        var bar = obj.foo;
+        obj.foo();
+        bar();
+
+        function fn (){ console.log(this) }
+        function fn2 (){ console.log(this) }
+        var arr = [fn,fn2]
+        arr[0]() // 这里面的 this 又是什么呢？
+        // arr[0].call()
+
+        // function fn1(callback){
+        //     console.log('zhurenwu')
+        //     callback();
+        // }
+        // function fn2(){
+        //     setTimeout(() => {
+        //         console.log('cirenwu');
+        //     }, 1000);
+        // }
+        // fn1(fn2);
+
+        function jsonp(obj){
+            console.log(obj);
+            // 定义一个处理jsonp返回数据的回调函数
+            window["callback"] = function(object){
+                obj.success(JSON.parse(object))
+            }
+            var script = document.createElement('script');
+            // 组合请求url
+            script.src = obj.url +"?fn=callback";
+            for(var key in obj.data){
+                script.src += '&' +key +'='+obj.data[key]
+            }
+            document.getElementsByTagName('body')[0].appendChild(script);
+
+            
+        }
+        jsonp({
+            url:'https://robot.zhilingsd.com/robot/caseManager/queryCallRecordInit',
+            data:{},
+            success:function(obj){
+                console.log(obj)
+            }
+        })
+
+    </script>
+</body>
+</html>

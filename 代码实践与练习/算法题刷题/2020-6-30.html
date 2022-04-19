@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>6.30号-fighting</title>
+</head>
+<body>
+    <script>
+        console.log('-----start------fighting-----')
+        // 用两个栈实现队列请实现它的两个函数 appendTail 和 deleteHead ，
+        // 分别完成在队列尾部插入整数和在队列头部删除整数的功能。(若队列中没有元素，deleteHead 操作返回 -1 )
+        // easy
+        var CQueue = function() {
+            // this.queue = []
+            this.stackIn = []
+            this.stackOut = []
+        };
+
+        /** 
+        * @param {number} value
+        * @return {void}
+        */
+        CQueue.prototype.appendTail = function(value) {
+            // this.queue.push(value)
+            this.stackIn.push(value)
+        };
+
+        /**
+        * @return {number}
+        */
+        CQueue.prototype.deleteHead = function() {
+            // let res = this.queue.shift()
+            // return res?res:-1
+            if(this.stackOut.length == 0 && this.stackIn.length==0){
+                return -1
+            }
+            else{
+                return this.stackIn.shift()
+            }
+        };        
+        /**
+        * Your CQueue object will be instantiated and called as such:
+        * var obj = new CQueue()
+        * obj.appendTail(value)
+        * var param_2 = obj.deleteHead()
+        */
+
+
+        // 给定一组不含重复元素的整数数组 nums，返回该数组所有可能的子集（幂集）。
+        // 说明：解集不能包含重复的子集
+        // 方法1：迭代法 不断把后面的数据push进去形成新数组 n*2^n 时间和空间复杂度都是
+        // var subsets = function(nums) {
+        //     let res = [[]]
+        //     for(var i=0;i<nums.length;i++){
+        //         let len = res.length
+        //         for(var j=0;j<len;j++){
+        //             res.push(res[j].concat(nums[i]))
+        //         }
+        //     }
+        //     console.log(nums,res)
+        // };
+        //  方法2 回溯+递归 n*2^n 时间和空间复杂度都是
+        var subsets = function(nums) {
+            let res = [],current = []
+            var getChild = function(current,start){
+                res.push(current)
+                for(var i = start;i<nums.length;i++){
+                    current.push(nums[i])
+                    getChild(current.slice(),i+1)
+                    current.pop()
+                }
+            }
+            getChild(current,0)
+            return res
+            // for(var i=0;i<nums.length;i++){
+            //     let len = res.length
+            //     for(var j=0;j<len;j++){
+            //         res.push(res[j].concat(nums[i]))
+            //     }
+            // }
+            // console.log(nums,res)
+        };
+        subsets([1,2,3])
+        
+
+        
+        // 接雨水  可以使用动态规划,栈和双指针方法计算,脑子不够用,先用动态规划算一遍
+        // 方法1 动态规划 从左到右遍历柱子最高数组,从右到左遍历柱子最高数组.相同位置比对两个较小的一段减去柱子高度累加
+        // var trap = function(height) {
+        //     if(height.length<=2){return 0}
+        //     let len = height.length,leftBar=[height[0]],rightBar = [],result = 0
+        //     for(var i=1;i<len-1;i++){
+        //         leftBar[i] = Math.max(height[i],leftBar[i-1])
+        //     }
+        //     rightBar[len-1] = height[len-1]
+        //     for(var i=len-2;i>=0;i--){
+        //         rightBar[i] = Math.max(height[i],rightBar[i+1])
+        //     }
+        //     for(var i=0;i<leftBar.length;i++){
+        //           result+= Math.min(rightBar[i],leftBar[i]) - height[i]
+        //     }
+        //     console.log(leftBar,rightBar,height,result)
+        // };
+        // trap([0,1,0,2,1,0,1,3,2,1,2,1])
+        // 方法2 栈 用栈存储每个低洼处,遇到递减就执行,如果递增说明形成洼地,算出洼地的面积,累加
+        // 方法3 双指针
+
+
+
+        // 给定一个字符串，验证它是否是回文串，只考虑字母和数字字符，可以忽略字母的大小写。
+        // 回文字符串指的是中心左右对称,正读和反读都一样
+        var isPalindrome = function(s) {
+            // s = s.replace(/[^a-zA-Z0-9]/g,'').toLowerCase()
+            // let len = s.length/2
+            // for(var i=0;i<len;i++){
+            //     console.log(s[i])
+            //     if(s[i]!==s[s.length-1-i]) return false
+            // }
+            // return true
+            s = s.replace(/[^a-zA-Z0-9]/g,'').toLowerCase()
+            let m = s.split('').reverse().join('')
+            return s==m
+        };
+        isPalindrome("race a car")
+
+        // 给定一个非空字符串 s，最多删除一个字符。判断是否能成为回文字符串。
+        var validPalindrome = function(s,flag=true) {
+            let l = 0, r = s.length - 1;
+            while (l < r && s[l] === s[r]) l++, r--;
+            if (r <= l) return true;
+            if (flag == true) return validPalindrome(s.slice(l, r), false) || validPalindrome(s.slice(l + 1, r + 1), false)
+            return false;
+        };
+        console.log(validPalindrome("cbbcc"))
+    </script>
+</body>
+</html>

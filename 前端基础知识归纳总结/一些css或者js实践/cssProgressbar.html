@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <div style="width:300px;height: 150px;overflow: auto;">
+        <div class="todo-div">
+            <div  style="position: relative;z-index: 100;">
+                <ul id="todo-list">
+                    <li class="item">喝茶</li>
+                    <li class="item">吃饭</li>
+                    <li class="item">做饭</li>
+                    <li class="item">洗衣服</li>
+                </ul>
+                <ul id="todo-list">
+                    <li class="item">喝茶</li>
+                    <li class="item">吃饭</li>
+                    <li class="item">做饭</li>
+                    <li class="item">洗衣服</li>
+                </ul>
+                <ul id="todo-list">
+                    <li class="item">喝茶</li>
+                    <li class="item">吃饭</li>
+                    <li class="item">做饭</li>
+                    <li class="item">洗衣服</li>
+                </ul>
+                <ul id="todo-list">
+                    <li class="item">喝茶</li>
+                    <li class="item">吃饭</li>
+                    <li class="item">做饭</li>
+                    <li class="item">洗衣服</li>
+                </ul>
+            </div>
+                
+            </div>
+    </div>
+    <style>
+        .todo-div{
+            background-image: linear-gradient(to right top,pink 50%,#fff 50%);
+            background-repeat: no-repeat;
+            background-size: 500px ;
+        }
+        .todo-div::after{
+            content:"";
+            background: #fff;
+            position: fixed;
+            top:10px;
+            left: 0;
+            z-index: 1;
+            width:295px;
+            height: 150px;
+            /* opacity: 0; */
+        }
+    </style>
+    <script>
+        document.addEventListener('DOMContentLoaded',function(){
+            console.log('监听内容加载事件');
+            // let items = document.getElementsByClassName('item');
+            // for(let i of items){
+            //     i.addEventListener('click',function(){
+            //         console.log('you will'+i.innerText)
+            //     })
+            // }
+            // ---------------事件委托代理------------------
+            let list = document.getElementById('todo-list');
+            console.log(list);
+            list.addEventListener('click',function(e){
+                console.log(e.target.innerText)
+            })
+            // ---------------事件委托代理------------------
+            // 编写一个函数，该函数将遍历整数列表，并在延迟3秒后打印每个元素的索引。
+            const arr = [10,20,30,40,50];
+            for(let i=0;i<arr.length;i++){
+                setTimeout(() => {
+                    console.log('the index of number is'+i);
+                }, 3000);
+            }
+            for (var i = 0; i < arr.length; i++) {
+                setTimeout(function(i_local){
+                    return function () {
+                    console.log('The index of this number is: ' + i_local);
+                    }
+                }(i), 3000)
+            }
+            // 事件的节流与防抖
+        })
+    </script>
+</body>
+</html>

@@ -1,0 +1,284 @@
+1. 对象的toString和valueOf方法的应用场景
+  
+  1.1
+     直接输出console，不会调用toString和valueOf
+ 
+  1.2
+     使用+等运算符号，会先使用valueOf,再使用toString
+  1.3
+     使用 obj == {}
+  1.4
+     不会调用toString和valueOf方法
+  1.5
+      使用 obj === {}，不会使用toString和valueOf
+  1.6
+      使用 obj == 'test',会调用valueOf,然后调用toString
+  1.7 
+      使用 obj === 'test',不会调用toString,不会调用valueOf
+     
+2. 深度克隆
+
+    function deepClone(obj){
+       var objClone = obj instanceof Array ? [] : {};
+       for(var item in obj){
+         if(typeof obj[item] === "object"){
+             objClone[item] == deepClone(obj[item])
+          } else {
+              objClone[item] == obj[item];
+          }
+         }
+       }
+
+3 防抖函数的封装使用　　
+  
+  function throttle(method,time){
+     let timer,args = arguments,start;
+     return function loop(){
+       let self = this;
+       let now = Date.now();
+       if(!start){
+         start = now;  
+       }
+       if(now - start >= time){
+         methods.apply(self,args);
+         start = now;
+       }else{ 
+         timer = setTimeout(function(){
+             loop.apply(self,args)
+          },50)
+       }     
+     }
+  }
+
+4 项目中遇到的困难
+  团队中的兼容： 必须要update,然后commit
+  文件下载 post请求文档流下载，如果没有文件，提示错误信息返回msg,因为我们将返回的东西转换了blob格式，所  以不能正确获取错误文字，我们让在接口的header里加入了错误文字
+  机器语音系统中差不多一百个输入框，每个都要检验，遍历每个弹框，数据作为一个对象，加入errorMsg属性
+  使用vue，动态校验多个表单$refs.form遍历每个表单
+  vue使用表单录音播放，暂停和播放的切换
+  vue使用element组件的menu组件鼠标移入移出事件mouseover 改为mouseenter mouseleave事件，不会再子元素生效
+
+5 闭包的定义以及优缺点
+  闭包就是能够读取其他函数内部变量的函数，基本上就是在一个函数里，再定义一个函数
+  优点：可以读取函数的变量和保存在内存中，缺点：不会被浏览器垃圾回收机制回收，消耗内存，
+  在退出函数之前，删除，会改变父函数中的值，修改要注意
+
+6 jsonp 
+  web页面调用含有src属性的标签都可以跨域请求，如 script,img,iframe。
+  get方法加上一个callback参数的函数，服务器将数据放到这个函数名中
+  优点：跨域，兼容性好，callback方法 缺点：只能使用get请求，http方式，jsonp调用失败不会返回http状态码，安全性差点
+
+7 js异步机制
+  setTimeout setInterval 回调  promise generator async 
+8 let const
+  let 和var之间的几个不同， let 块级作用域 没有变量提升 不可重复声明 暂存性死区
+  const 变量不是复杂类型数据那就不可以在修改 不可以在声明 暂存性死区
+9 css 
+   高度塌陷 父标签设置overflow:hidden ,::after,:before:display:table,content:'';clear:both;
+   伪类：:link :visited :active :hover :after :focus :first-child 
+   伪元素: :first-line :first-letter :after :before 前两个只作用域块级作用域
+
+10 opacity:0 rgba 前者改变的是元素及其内容的透明度，后者改变的是元素本身的颜色或者背景色，子元素不会继承
+
+11 flex布局
+display: flex,flex-diraction: row column  flex-warp:
+
+12 渐进增强 优雅降级 
+   渐进增强：一开始就对低版本浏览器就行构建页面，完成基本功能，然后在对高浏览器进行效果，加护更好的体验
+   优雅降级：一开始就构建完整功能的浏览器，然后针对及版本浏览器进行修复和测试
+13 :before :after 和 ::before ::after 的区别 一个是伪类 一个是伪元素
+
+14 圣杯布局：
+div.main居中，然后是div.left div.right ,float:-100%,然后position:realtive,然后left,right定位
+还有要一个是absolute,
+
+15 mysql 
+  create database llq 
+  drop database llq 
+  备份 backup database llq to helloDatabase 
+   create table llq(
+    id int(10) primary key,
+    name varchar(50) not null,
+    
+   )
+  alter table llq add primary key(id)
+  alter table llq drop primary key(id)
+  select * from llq
+  insert into llq (id,name) values(1,name)
+  update llq set name = 'llq' where id = 1; 
+  select * from llq order by id
+  select count(*) as sum from llq
+  select sum(name) from llq
+  delete from llq where id = 1
+  select distinct(*) from llq where id = 1;
+  
+  数据类型: 
+          数字: TINYINT SMALLINT INT BIGINT 
+          时间：TIME YEAR DATE DATETIME TIMESTAMP 
+          字符串：CHAR VARCHART TEXT BLOB
+
+16 git reset 
+  将reset 是将当前分支的head指向另外一个commit ,有三个参数 --soft --mixed --hard
+  --soft head指向其他commit 工作区，add的东西都不会改变
+  --mixed head指向其他commit 工作区不会改变，add的东西清空
+  --soft head指向其他commit 工作区，add的内容都会改变
+  git reflog 可以查看reset的内容
+  git stash 保存本地代码
+  git stash pop 取出保存的代码
+  git push origin master -d branch1 删除远程分支
+  git branch -d bransh1 删除本地分支
+
+17 线程和进程
+  进程是程序的实体，线程是进程的一个实体，进程--资源分配的最小单位 线程--程序执行的最小单位
+  线程拥有独立的数据和地址，线程共享地址和数据，线程切换比较消耗性能，进程切换比较快
+
+18 浏览器异步
+   回调 setTimout setInter promise generator async
+
+19  事件机制
+  冒泡 捕获
+  事件委托：利用冒泡，将子元素的事件绑定到父元素上
+
+20 addeventlisten（event,listener,capture） capture是否是捕获，默人是false 冒泡
+
+21 jsonp
+  img iframe script 标签，jsonp是通过script将url作为script的scr，src中带一个方法的参数，服务器接收到方法名执行方法，将数据返回
+
+22 mvvm mvc mvp 模式
+  mvc是将逻辑 数据 视图 分开，逻辑控制数据，数据展示视图，视图通过逻辑修改数据，形成过一个闭合
+  mvp 是通过逻辑控制视图，控制数据，数据修改逻辑，视图控制逻辑,
+  mvp mvc的区别是mvc中视图直接从model中取数据，mvp中视图不是，它是透过presenter取出数据
+  mvvm 主要是分离view 和model,在页面上真正将页面与数据逻辑分离，view和model修改对方只能通过viewModel改变
+  低耦合，可重用，
+23 面向对象
+  面向对象三大特性： 封装 继承和多态 
+  类： 多个类似的对象成为类
+23 算法题目
+
+24 设计模式
+   工厂模式 原型模式
+25 async await
+   await返回的是一个promise,async放在函数的前面表示一个异步函数，
+26 amd common.js
+amd是异步加载模块 cmd是通用模块，即同步加载模块，amd通过异步加载的方法引入依赖，cmd可以通过同步，也可以使异步的方式，cmd推崇就近依赖，amd推崇依赖前置
+  common.js 认为一个文件就是一个模块，引入依赖是通过一个模块中的export对象，common.js加载是同步的，因为他是服务器上运行，速度较快。 
+  为了在浏览器上实现异步加载，有两种模式：amd cmd,
+  amd是采用define定义模块，用require引入，异步加载
+  cmd是延迟执行，就近依赖,amd是提前执行，依赖前置
+27 webpack
+  使用webpack打包，
+  优化：
+     1： 将一些第三方工具和依赖使用cdn引入，externals对象里，然后script标签引入，
+     2 使用webpack-bundle-analyzer分析哪些包过大，
+     3 将js,css预缩成zip包
+     4 vender.js切割
+28 spa 单页面程序
+  是将所有的活动局限在一个web页面，只有在该页面初始化是加载js,css，html，一旦加载完成，不在加载这些资源，而是利用js的变化html
+  好处：避免了页面的重新加载，可以用户体验更好，给予ajax可以实现无跳转刷新，history机制根据hash的变化实现不同的页面跳转，
+  缺点：不易管理和不安全，不利于seo，自定义状态来改变网址
+29 前段路由
+   主要是通过hash，hisotry机制，主要有hashChange, history,pushState popState
+30 网络七层协议
+    硬件层： 网络传输的通道
+    链路层： 发收两端建立通信联络和拆除通信联络的过程
+    ip层： 数据连接
+    tcp： 数据传输
+    会话层：开始和结束会话
+    表示层：数据格式和加密
+    应用层：应用程序的通信
+
+31 平衡二叉树
+  左右两哥字数的高度差不大于1，且都是平衡二叉树
+
+32 事件模型
+  冒泡和捕获
+33 babel
+   es现在还不能支持es6,需要用babel进行转换
+34 this
+  1 构造函数，this指向new出的对象 2 普通函数 this指向全局 3 对象的方法，指向上级对象 4 apply,call方法的调用 ，指向第一个参数
+35 用 meta 怎么实现不从缓存中获取资源
+  <meta http-equiv="cache-control" content="no cache"
+36 柯利化
+  柯利化多参数传入的函数拆成单参数（或部分）函数，内部再返回调用下一个单参数（或部分）函数，依次处理剩余的参数。原理闭包，链式调用
+37 xss攻击
+  浏览器攻击，当渲染dom数过程中发生不可预期的js代码，就发生了xss攻击，发射型：提交的url中出现了代码，储存型：将注入的代码提交到数据库，对某些危险的代码进行转义和校验
+38 bfc 及触发条件
+块级格式化上下文，浮动，绝对定位 ，overflow不为visible,display:inline-block,定义：是一个独立的容器，内部是按照垂直方向进行上到下的排列
+39 性能优化
+ 文件合并，压缩，图片的优化和压缩，减少http请求数，循环中获取dom尽量使用一次获取然后使用，字符串拼接耗时，css 层级要低，查找对象的原型链也比较耗时，
+40 compose函数
+  compose接受的参数是参数，返回的也是函数，初始化的函数是多远的，其他的函数接手值都是单元的，参数方向是自右向左的，初始函数一定要放到最右边
+41 虚拟 dom
+用js模拟虚拟dom的属性，页面的更新全部反应到js对象上，操作js肯定快很多，等更新完，将最终的js独像映射成真真的dom，然后浏览器去绘制
+
+41 flex
+  使用flex之后，float,clear,vertical-align将要失效
+
+   display:flex; 
+   flex-dreaction flex-wrap flex-flow justify-content  align-items flex-grow flex-shrink flex-basis 0 1 auto; align-self
+
+42 正则
+  数字转换成货币 /\B(?=(?:\d{3})+\b)/g
+  exec match 在全局正则条件下，exec是往下一个，match是全部返回
+
+43 node
+  express和node区别
+  express路由处理由自己集成，koa需要外部引入中间件
+  express是引入callback处理异步，koa2是async/await
+  express使用callback捕获异常，koa使用try/catch,架构更轻量
+  express是由request对象，this取代了req,res
+  node.js有非阻塞，事件驱动I/O等特性，更容易处理高并发，降低服务器资源的浪费，但是计算和处理逻辑的功能比较弱
+  nextstick setImediate setTimeout 
+  全局对象有： __dirname __filename setTimeout setInterval process console.log();
+
+44 webpack 
+  优化： 
+45 react 
+  和vue对比： 通过js来操作一切，js操作css,html,vue中是html,css,js集合在一起，react是类的写法，vue是函数通过options中传入参数，vuex中mutations直接改变原始数据，reducer返回一个全新的state,react缺少指令，v-for,v-if等，react中子组件向父组件传递方法，使用props，vue中emit
+46 vue
+
+47 js
+
+48 移动端
+
+49 json
+  Date对象，正则对象变为空对象，函数，undefined丢失，NaN,infinity -infinity会变为null,丢失对象的construct
+
+50 react和vue的对比
+
+51 diff算法
+
+52 vue源码
+
+53 webpack原理
+
+54 双向绑定
+  
+
+55 http状态码
+  200 成功
+  301 永久定向
+  302 临时重定向
+  304 未修改
+  305 代理
+  400 服务器不理解的语法
+  401 需要身份校验
+  403 服务器拒绝   
+  404 not found 
+  500 服务器遇到不理解的请求
+  504 请求超时
+  
+
+
+
+css复习知识
+
+清除浮动有哪些方法：
+容器的高度不能自动伸长适应内容的高度，是内容溢到容器外的布局就是浮动
+1 在元素后面元素添加clear:both，或者用：after伪元素添加属性clear:both
+2 overflow:hidden,添加这个属性后，浮动回到了容器层，浮东元素会吧容器撑起来
+3 父元素也添加浮动，但是布局有问题
+
+css选择器有：
+通用选择器 * id选择器 类选择器 标签选择器 属性选择器  后代元素选择器 多元素选择器 相邻选择器 子代选择器
+伪类选择器 :focus :linked :active :hover :before :after

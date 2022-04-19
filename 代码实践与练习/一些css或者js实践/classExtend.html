@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        // 定义一个类
+        function Animal(name){
+            // 类的属性
+            this.name = name||'panda';
+            // 实例方法
+            this.sleep = function(){
+                console.log(this.name+'正在睡觉')
+            }
+        }
+        // 原型方法
+        Animal.prototype.eat = function(thing){
+            console.log(this.name+'正在吃'+thing)
+        }
+        Animal.prototype.age = '18';
+        // console.log(Animal('cat'));
+
+        // 原型链继承
+        function dog(){}
+            // dog.prototype.name = new Animal()
+            dog.prototype = new Animal();
+            var dogs = new dog();
+            console.log(dogs.name);
+            dogs.sleep();
+            dogs.eat('fish');
+            console.log(dogs instanceof Animal);
+            console.log(dogs instanceof dog);
+            // 基于原型链的继承，既是父类的实例也是子类的实例，缺点是无法实现多继承
+
+        // 构造函数继承---使用父类的构造函数来增强子类实例，等于复制父类的实例属性给子类
+        function bird(name){
+            Animal.call(this);
+            this.name = name||'cuicy';  
+            this.sing = function(){
+                console.log(this.name+' is singing!')
+            }
+        }
+        var birds = new bird();
+        console.log(birds.age);
+        birds.sleep();
+        birds.sing();
+        console.log(birds instanceof Animal);
+        console.log(birds instanceof bird);
+        //可以实现多继承，但是不能继承原型链上的属性和方法
+
+        // 实例继承（为父类实例添加新特性，作为子类实例返回）
+        // 拷贝继承（拷贝父类元素上的属性和方法）
+        // 组合继承（构造继承+原型链继承），继承父类的属性并保留传参的优点，通过父类实例作为子类原型，实现函数复用，缺点是调用了两次父类构造函数，生成了两份实例
+        function cat(name){
+            Animal.call(this);
+            this.name = name||'tom'
+        }
+        cat.prototype = new Animal();
+        cat.prototype.constructor = cat;
+        var cats = new cat();
+        console.log(cats.name,cats.age)
+        cats.sleep();
+        cats.eat('fish');
+        console.log(cats instanceof Animal);
+        console.log(cats instanceof cat);
+
+        // 寄生组合继承-通过寄生方式，砍掉父类的实例属性，在调用两次父类的构造的时候，就不会初始化两份实例属性方法,较为推荐
+        function snake(){
+            Animal.call(this);
+            this.name = 'snake';
+        }
+        (function(){
+            // 创建一个没有实例方法的类
+           var Super =function(){};
+           Super.prototype = Animal.prototype;
+           snake.prototype = new Super()
+        })();
+        var snakes = new snake();
+        console.log(snakes.name);
+        snakes.sleep();
+        console.log(snakes instanceof Animal); // true
+        console.log(snakes instanceof snake); //true
+
+
+        
+        
+
+
+    </script>
+</body>
+</html>

@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        #hhh{
+            width:100px;
+            height: 100px;
+            background-color: pink;
+            margin: auto;       
+        }
+    </style>
+</head>
+<body>
+    <div id="app">
+        <input type="text" :value="text" @input="text = $event.target.value">
+        <p>{{text}}</p>
+        <button @click="changeData">show</button>
+        <my-com ref="mycom" :text="text"></my-com>
+    </div>
+    <script crossorigin="anonymous" integrity="sha384-g92AC94PwdsWZaIpD8bGSldDkIAgSf0X7tZ5Isd6rNXbjILE0EU6vrlj+gWPDMyY" src="https://lib.baomitu.com/vue/2.6.11/vue.common.dev.js"></script>
+    <script>
+        new Vue({
+            el:'#app',
+            data(){
+                return {
+                    text:111
+                }
+            },
+            methods:{
+                changeData(){
+                    console.log(111)
+                    this.$refs.mycom.showNum()
+                }
+            },
+            components:{
+                'my-com': {
+                        template: '<div>这是我的组件{{hhh}}<div id="hhh" @click="close" v-show="hhh==1">789</div></div>',
+                        data(){
+                            return {
+                                hhh:'red'
+                            }
+                        },
+                        props:{
+                            text:{
+                                type:String
+                            }
+                        },
+                        methods:{
+                            showNum(){
+                                console.log('success',this.text)
+                                if(this.hhh =='red'){this.hhh = 1}
+                                else{
+                                    this.hhh ='red'
+                                }
+                                
+                            },
+                            close(){
+                                this.hhh = 'red'
+                            }
+            },
+                        
+                        }
+
+            }
+        })
+        // Vue.component('my-com',{
+        //     'template':'<div>这是我的组件</div>'
+        // })
+        // console.log('-----start------')
+        // // 发起多个异步请求的情况下，并行和串行分别如何实现
+        // // 并行
+        // let getA = new Promise((resolve,reject)=>{
+        //     resolve('a')
+        // })
+        // let getB = new Promise((resolve,reject)=>{
+        //     resolve('b')
+        // })
+        // Promise.all([getA,getB]).then((data)=>{
+        //     console.log('zhixingba',data)
+        // })
+
+        // 串行
+        // function a(){
+        //     console.log(111)
+        // }
+        // function b(){
+        //     console.log(222)
+        // }
+        // async function a(){
+        //     await b()
+        //     console.log(111)
+        // }
+        // a()
+
+
+    </script>
+</body>
+</html>

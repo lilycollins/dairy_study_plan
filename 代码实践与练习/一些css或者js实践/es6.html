@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+    // console.log('----------Generator函数的语法---------');    
+    // function *helloGenerator(){
+    //     console.log('zhixingle')
+    //     yield 'hello';
+    //     yield 'world';
+    //     yield 20+87;
+    //     return 'ending'
+    // }
+    // var hw = helloGenerator();
+    // console.log(hw.next());
+    // console.log(hw.next());
+    // console.log(hw.next());
+    // var myInterable = {};
+    // myInterable[Symbol.iterator] = function* (){
+    //     yield 'hello';
+    //     yield 'world';
+    //     yield 20+87;
+    //     return 'ending'
+    // }
+    // console.log(myInterable,[...myInterable])
+    // function* foo(x) {
+    //     var y = 2 * (yield (x + 1));
+    //     var z = yield (y / 3);
+    //     return (x + y + z);
+    // }
+    // var a = foo(5);
+    // console.log(a.next());
+    // console.log(a.next(12));
+    // console.log(a.next(15));
+
+    // function* dataConsumer() {
+    // console.log('Started');
+    // console.log(`1. ${yield}`);
+    // console.log(`2. ${yield}`);
+    // return 'result';
+    // }
+
+    // let genObj = dataConsumer();
+    // console.log(genObj.next())
+    // console.log(genObj.next(a))
+
+    // function* fibonacci() {
+    //     let [prev, curr] = [0, 1];
+    //     for (;;) {
+    //         yield curr;
+    //         [prev, curr] = [curr, prev + curr];
+    //     }
+    // }
+
+    // for (let n of fibonacci()) {
+    //     if (n > 1000) break;
+    //     // console.log(n);
+    // }
+    // var g =function *(){
+    //     try{
+    //          yield 1;
+    //     }
+    //     catch(e){
+    //         console.log(e)
+    //     }
+    // }
+    // var i =g();
+    // console.log(i.next());  
+    console.log('----------set和map----------')  
+    var s = new Set([1,2,3,3,3,4]);
+    s.clear()
+    console.log(s);
+
+    
+    </script>
+    
+</body>
+</html>
