@@ -32,25 +32,7 @@
         dailyTemperatures([73, 74, 75, 71, 69, 72, 76, 73])  
         // [1, 1, 4, 2, 1, 1, 0, 0] 
 
-        // .使括号有效的最少添加   给定一个由 '(' 和 ')' 括号组成的字符串 S，我们需要添加最少的括号（ '(' 或是 ')'，可以在任何位置），以使得到的括号字符串有效。
-        var minAddToMakeValid = function(S) {
-            const s = S
-            let stack = [],count =0
-            for(var i=0;i<S.length;i++){
-                // 出栈条件-栈顶为'('且后面有为')'的项
-                while(stack.length && stack[stack.length-1]=='(' && S[i] ==')' ){
-                    S = S.replace(')','')
-                    stack.pop()
-                    count++
-                }
-                if(S[i]=='('){
-                    stack.push(S[i])
-                }              
-            }
-            console.log(S,count)
-            return S.length - count
-        };
-        minAddToMakeValid("()))))")
+        
     </script>
 </body>
 </html>

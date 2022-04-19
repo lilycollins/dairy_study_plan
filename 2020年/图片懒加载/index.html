@@ -47,6 +47,9 @@
     <img class="img" src=""
         data-src="https://user-gold-cdn.xitu.io/2019/9/7/16d0a7d2033996bc?w=500&h=325&f=jpeg&s=9951"
         alt="">
+        <div>
+          <h2 class="eggs">congratulations！you find a Easter eggs</h2>
+        </div>
   </div>
   <script>
     
@@ -106,6 +109,23 @@
         // 监听目标元素
         observer.observe(item);
     });
+    // 在固定区域执行事件
+    let options = {
+      root: box,
+      rootMargin: '0px'
+    }
+    let myobserve = new IntersectionObserver((entries)=>{
+      console.log(999, entries)
+      entries.forEach(item=>{
+        if(item.isIntersecting) {
+          alert('hahaha')
+          myobserve.unobserve(item.target) // 只执行一次，每次都要执行就不需要取消监听
+        }
+      })
+    },options)
+    let eggs = document.querySelector('.eggs')
+    myobserve.observe(eggs)
+
   </script>
 </body>
 </html>

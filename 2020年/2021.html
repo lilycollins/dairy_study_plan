@@ -281,7 +281,18 @@
         //         }
         //     }
         // };
-        // console.log(coinChange([186,419,83,408], 6249))
+        // var coinChange = function(coins, amount) {
+        //     let optimize = amount + 1
+        //     if(amount < 0) return -1
+        //     if(amount === 0) return 0
+        //     for(let i=0; i<coins.length; i++) {
+        //         let subOpt = coinChange(coins, amount - coins[i])
+        //         if(subOpt === -1) continue
+        //         optimize = Math.min(optimize, subOpt + 1)
+        //     }
+        //     return optimize
+        // }
+        // console.log(coinChange([186,419,83,408], 654))
         // 根据对象多种字段排序
         // let arr= [
         //     {
