@@ -199,7 +199,6 @@ let promise = new MyPromise((resolve, reject)=> {
     // }, 1000); 
     // reject('错了')
 })
-6
 promise.then()
 .then()
 .then((value)=>{
